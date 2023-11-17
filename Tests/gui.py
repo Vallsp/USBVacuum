@@ -1,7 +1,6 @@
 from tkinter import Tk, Canvas, Button, PhotoImage, Listbox, Scrollbar, messagebox
-import psutil
 from pathlib import Path
-import pyudev
+from backend import USBBackend
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("/home/vallsp/Bureau/build/assets/frame0")
@@ -12,11 +11,19 @@ def relative_to_assets(path: str) -> Path:
 
 
 class USBApp:
-    def __init__(self, root):
+    def __init__(self, root, backend):
         self.root = root
+        self.backend = backend
+
         self.root.geometry("1409x735")
         self.root.configure(bg="#9C9BC0")
         self.root.resizable(False, False)
+
+        window_width = self.root.winfo_reqwidth()
+        window_height = self.root.winfo_reqheight()
+        position_x = (self.root.winfo_screenwidth() - window_width) // 2
+        position_y = (self.root.winfo_screenheight() - window_height) // 2
+        self.root.geometry(f"+{position_x}+{position_y}")
 
         self.canvas = Canvas(
             self.root,
@@ -58,7 +65,7 @@ class USBApp:
             963.0,
             82.0,
             anchor="nw",
-            text="3 - Repporting",
+            text="3 - Reporting",
             fill="#000000",
             font=("Inter", 24 * -1)
         )
@@ -81,9 +88,9 @@ class USBApp:
         )
 
         self.canvas.create_text(
-            436.0,
+            703.5,
             211.0,
-            anchor="nw",
+            anchor="n",
             text="Select your device :",
             fill="#000000",
             font=("Inter", 24 * -1)
@@ -100,38 +107,23 @@ class USBApp:
             relief="flat"
         )
         self.button_2.place(
-            x=596.0,
+            x=683.5,
             y=621.0,
             width=217.0,
             height=50.0
         )
 
         self.listbox = Listbox(self.root, selectmode="single")
-        self.listbox.place(x=436.0, y=250.0, width=400.0, height=300.0)
+        self.listbox.place(x=663.5, y=250.0, width=400.0, height=300.0)
 
         scrollbar = Scrollbar(self.root, command=self.listbox.yview)
-        scrollbar.place(x=836.0, y=250.0, height=300.0)
+        scrollbar.place(x=1063.5, y=250.0, height=300.0)
         self.listbox.config(yscrollcommand=scrollbar.set)
 
         self.update_usb_devices()
 
-    def detecter_appareils_usb(self):
-        appareils_usb = []
-
-        for partition in psutil.disk_partitions():
-            if 'removable' in partition.opts:
-                appareils_usb.append(partition.device)
-
-        if HAS_PYUDEV:
-            context = pyudev.Context()
-            for device in context.list_devices(subsystem='block', DEVTYPE='disk'):
-                if 'ID_BUS' in device and device['ID_BUS'] == 'usb':
-                    appareils_usb.append(device.device_node)
-
-        return appareils_usb
-
     def update_usb_devices(self):
-        appareils_usb = self.detecter_appareils_usb()
+        appareils_usb = self.backend.detect_usb_devices()
         self.listbox.delete(0, "end")
         for appareil in appareils_usb:
             self.listbox.insert("end", appareil)
@@ -153,13 +145,7 @@ class USBApp:
 
 
 if __name__ == "__main__":
-    HAS_PYUDEV = False
-    try:
-        import pyudev
-        HAS_PYUDEV = True
-    except ImportError:
-        pass
-
+    backend = USBBackend()
     root = Tk()
-    app = USBApp(root)
+    app = USBApp(root, backend)
     root.mainloop()
