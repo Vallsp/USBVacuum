@@ -3,7 +3,7 @@ from pathlib import Path
 from backend import USBBackend
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path("/home/vallsp/Bureau/build/assets/frame0")
+ASSETS_PATH = OUTPUT_PATH / Path("")
 
 
 def relative_to_assets(path: str) -> Path:
