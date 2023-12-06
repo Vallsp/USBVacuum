@@ -1,2 +1,1 @@
-psutil==5.9.6
-pyudev==0.24.1
+tkdesigner=1.0.7
