@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# BEGIN: Load virtual environment
+source env/bin/activate
+# END: Load virtual environment
+
 OUTPUT_DIR="./src/"
 
 # BEGIN: Check if tkdesigner is installed
