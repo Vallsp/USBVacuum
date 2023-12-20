@@ -125,10 +125,10 @@ button_4 = Button(
     relief="flat"
 )
 button_4.place(
-    x=560.0,
-    y=650.0,
-    width=320.0,
-    height=80.0
+    x=594.0,
+    y=660.0,
+    width=251.0,
+    height=62.0
 )
 
 image_image_5 = PhotoImage(

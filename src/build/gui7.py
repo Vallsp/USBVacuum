@@ -93,10 +93,10 @@ button_1 = Button(
     relief="flat"
 )
 button_1.place(
-    x=960.0,
-    y=659.0,
-    width=243.0,
-    height=79.0
+    x=990.884033203125,
+    y=663.6063842773438,
+    width=181.2318878173828,
+    height=69.78723907470703
 )
 
 button_image_2 = PhotoImage(

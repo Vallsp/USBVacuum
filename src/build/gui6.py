@@ -77,9 +77,9 @@ button_1 = Button(
     relief="flat"
 )
 button_1.place(
-    x=594.0,
+    x=629.0,
     y=677.0,
-    width=253.0,
+    width=183.0,
     height=62.0
 )
 
