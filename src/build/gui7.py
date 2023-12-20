@@ -8,6 +8,7 @@ from pathlib import Path
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from backend.USB import * # Importation des fonctions depuis backend
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -130,5 +131,16 @@ image_8 = canvas.create_image(
     201.0,
     image=image_image_8
 )
+# Fonction pour mettre à jour l'affichage toutes les secondes
+def update_display():
+    display_usb_devices(canvas)
+    window.after(1000, update_display)  # Planifie la prochaine mise à jour après 1000 millisecondes (1 seconde)
+
+
+# Appel de la fonction pour afficher les périphériques USB
+display_usb_devices(canvas)
+# Appel de la fonction pour mettre à jour l'affichage toutes les secondes
+update_display()
+
 window.resizable(False, False)
 window.mainloop()
