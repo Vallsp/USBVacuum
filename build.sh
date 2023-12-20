@@ -4,7 +4,7 @@
 source env/bin/activate
 # END: Load virtual environment
 
-OUTPUT_DIR="./src/"
+OUTPUT_DIR="./src/test"
 
 # BEGIN: Check if tkdesigner is installed
 if ! [ -x "$(command -v tkdesigner)" ]; then
