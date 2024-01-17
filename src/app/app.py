@@ -9,6 +9,9 @@ window = Tk()
 window.geometry("1440x772")
 window.configure(bg="#202020")
 
+window.title("GUI")
+window.iconbitmap(OUTPUT_PATH / Path(r"./assets/icon.ico"))
+
 current_interface = None
 
 window.resizable(False, False)
@@ -650,6 +653,8 @@ def gui6():
             276.0,
             image=image_image_9
         )
+
+        list_tree_structure('')
 #------------------------------------------up-code gui-up---------------------------
         def update_display():
             display_usb_devices(canvas)
