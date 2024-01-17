@@ -7,10 +7,11 @@ OUTPUT_PATH = Path(__file__).parent
 #def __init__():
 window = Tk()
 window.geometry("1440x772")
+# window.attributes("-fullscreen", True)
 window.configure(bg="#202020")
 
-window.title("GUI")
-window.iconbitmap(OUTPUT_PATH / Path(r"./assets/icon.ico"))
+window.title("USBVacuum")
+# window.iconbitmap(OUTPUT_PATH / Path(r"./assets/icon.ico"))
 
 current_interface = None
 

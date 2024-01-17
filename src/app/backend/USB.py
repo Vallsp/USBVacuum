@@ -1,10 +1,12 @@
 from curses import window
 import os
 from pathlib import Path
-import psutil , platform, ctypes
+import platform, ctypes
 import platform
 from tkinter import Canvas, Tk
 from tkinter import Text, END
+import psutil
+
 
 def get_usb_devices():
     devices = []
