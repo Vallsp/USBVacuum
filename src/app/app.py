@@ -653,9 +653,9 @@ def gui6():
             276.0,
             image=image_image_9
         )
-
-        list_tree_structure('')
 #------------------------------------------up-code gui-up---------------------------
+        list_tree_structure()
+
         def update_display():
             display_usb_devices(canvas)
             window.after(1000, update_display)  # Planifie la prochaine mise à jour après 1000 millisecondes (1 seconde)
@@ -664,7 +664,7 @@ def gui6():
 
         window.resizable(False, False)
         window.mainloop()
-
+    
 def gui7():
         canvas = Canvas(
         window,
