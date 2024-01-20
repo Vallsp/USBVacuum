@@ -1,43 +1,26 @@
-from curses import window
-import os
-from pathlib import Path
-import platform, ctypes
-import platform
-from tkinter import Canvas, Tk
+import os, subprocess
 from tkinter import Text, END
-import psutil
-
 
 def get_usb_devices():
     devices = []
-    for device in psutil.disk_partitions():
-        if 'removable' in device.opts:
-            device_info = psutil.disk_usage(device.device)
-            volume_name = get_volume_name(device.device)
-            devices.append((device.device, volume_name))
-    return devices
+    try:
+        output = subprocess.check_output(['blkid']).decode('utf-8').splitlines()
 
-# Fonction pour obtenir le nom du volume sur Windows
-def get_volume_name(device_path):
-    if platform.system() == 'Windows':
-        try:
-            volume_name_buffer = ctypes.create_unicode_buffer(1024)
-            ctypes.windll.kernel32.GetVolumeInformationW(
-                device_path + '\\',
-                volume_name_buffer,
-                ctypes.sizeof(volume_name_buffer),
-                None,
-                None,
-                None,
-                None,
-                0
-            )
-            return volume_name_buffer.value
-        except Exception as e:
-            print(f"Error getting volume name: {e}")
-            return "Unknown"
-    else:
-        return "Unknown"
+        for line in output:
+            parts = line.split()
+            if parts and parts[0].startswith('/dev/') and 'LABEL=' in line:
+                device_path = parts[0]
+                label_part = [part for part in parts if 'LABEL=' in part][0]
+                volume_name = label_part.split('=')[1].strip('"')
+                # Ajout de removable (à adapter si nécessaire)
+                removable = 'TYPE="disk"' not in line
+
+                devices.append((device_path, volume_name))
+
+    except Exception as e:
+        print(f"Error getting USB devices: {e}")
+
+    return devices
 
 
 def display_usb_devices(canvas):

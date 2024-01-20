@@ -1,5 +1,5 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Button, PhotoImage, messagebox
+from tkinter import Tk, Canvas, Button, PhotoImage
 from backend.USB import *  # Importation des fonctions depuis backend
 
 OUTPUT_PATH = Path(__file__).parent
