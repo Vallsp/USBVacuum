@@ -1,6 +1,7 @@
 import os,psutil
 from tkinter import Text, END, messagebox, IntVar
 from pathlib import Path
+from loguru import logger
 
 selected_usb_mount_path = ""
 scan_type = ""
@@ -26,7 +27,7 @@ def get_usb_devices():
                 devices.append((partition.device, volume_name, partition.mountpoint))
 
     except Exception as e:
-        print(f"Error getting USB devices: {e}")
+        logger.error(f"Error getting USB devices: {e}")
 
 
     return devices
@@ -48,6 +49,7 @@ def display_usb_devices(canvas):
 def on_usb_device_click(mount_path, device_name):
     global selected_usb_mount_path
     selected_usb_mount_path = mount_path
+    logger.info(f"USB device selected: {device_name}")
     messagebox.showinfo("Info", f"USB device selected: {device_name}")
 
 def test_select_USB():
@@ -71,7 +73,7 @@ def update_scan_type(value):
     if value == "1":
         scan_type = "fast"
     elif value == "2":
-         scan_type = "complete"
+        scan_type = "complete"
     else:
         scan_type = None
 

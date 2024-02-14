@@ -1,7 +1,12 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton, IntVar
+from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton
+from loguru import logger
 from backend.USB import *  # Importation des fonctions depuis backend
 from backend.scan import *  # Importation des fonctions depuis backend
+
+__version__ = "Alpha 0.1"
+
+logger.info(f"Starting USBVacuum version {__version__}")
 
 OUTPUT_PATH = Path(__file__).parent
 
@@ -24,6 +29,7 @@ def switch_to_interface(interface_name):
 
         #Ajout de la vérification de l'USB ici
         if interface_name == "gui6" and test_select_USB() == '': 
+           logger.error("No storage device selected.")
            messagebox.showerror("Erreur", "Please select a storage device.")
            return
 
@@ -576,7 +582,7 @@ def gui6():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: do_scan(scan_type, test_select_USB()),
+            command=lambda: do_scan(return_scan_type(), test_select_USB()),
             relief="flat"
         )
         button_1.place(
