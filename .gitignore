@@ -161,6 +161,5 @@ cython_debug/
 
 # USBVacuum
 transfer.sh
-start.sh
 
 app/build
