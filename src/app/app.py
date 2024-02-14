@@ -1,5 +1,5 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton
+from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton, IntVar
 from backend.USB import *  # Importation des fonctions depuis backend
 
 OUTPUT_PATH = Path(__file__).parent
@@ -534,6 +534,8 @@ def gui6():
 
         def relative_to_assets(path: str) -> Path:
             return ASSETS_PATH / Path(path)
+        
+        global scan_type
 #------------------------------------------down-code gui-down---------------------------
         image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
@@ -655,12 +657,15 @@ def gui6():
             image=image_image_9
         )
 #------------------------------------------up-code gui-up---------------------------
+        scan_type_var = None
         list_tree_structure()
- 
-        fast_scan_radio = Radiobutton(window, variable=scan_type_var, value=1, command=update_scan_type())
+        
+
+        # Définition des Radiobuttons
+        fast_scan_radio = Radiobutton(window, variable=scan_type_var, value=1, command=lambda: update_scan_type("1"))
         fast_scan_radio.place(x=1050, y=320)
 
-        complete_scan_radio = Radiobutton(window, variable=scan_type_var, value=2, command=update_scan_type())
+        complete_scan_radio = Radiobutton(window, variable=scan_type_var, value=2, command=lambda: update_scan_type("2"))
         complete_scan_radio.place(x=1050, y=370) 
 
 
@@ -807,7 +812,6 @@ interfaces = {
     "gui5": gui5,
     "gui6": gui6,
     "gui7": gui7,
-    # Ajoutez d'autres interfaces ici
     }
 
 if __name__ == "__main__":

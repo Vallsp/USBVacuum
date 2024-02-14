@@ -1,9 +1,8 @@
 import os,psutil
-from tkinter import Text, END, messagebox
+from tkinter import Text, END, messagebox, IntVar
 from pathlib import Path
 
 selected_usb_mount_path = ""
-scan_type_var = 0
 scan_type = ""
 
 def is_usb_device(partition):
@@ -66,14 +65,15 @@ def list_tree_structure():
         for filename in filenames:
             text_widget.insert(END, filename + '\n')  # Insert the filename into the Text widget
 
-# Fonction pour mettre à jour la variable scan_type en fonction de l'état des radioButton
-def update_scan_type():
-        global scan_type
-        if scan_type_var == 1:
-            scan_type = "fast"
-            print(scan_type)
-        elif scan_type_var == 2:
-            scan_type = "complete"
-            print(scan_type)
-        else:
-            scan_type = None
+# Fonction pour mettre à jour la variable en fonction de l'état des radioButton
+def update_scan_type(value):
+    global scan_type
+    if value == "1":
+        scan_type = "fast"
+    elif value == "2":
+         scan_type = "complete"
+    else:
+        scan_type = None
+
+def return_scan_type():
+    return scan_type
