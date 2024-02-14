@@ -1,6 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton, IntVar
 from backend.USB import *  # Importation des fonctions depuis backend
+from backend.scan import *  # Importation des fonctions depuis backend
 
 OUTPUT_PATH = Path(__file__).parent
 
@@ -575,7 +576,7 @@ def gui6():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print(scan_type),
+            command=lambda: do_scan(scan_type, test_select_USB()),
             relief="flat"
         )
         button_1.place(
