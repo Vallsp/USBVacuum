@@ -1,5 +1,5 @@
 from pathlib import Path
-from tkinter import Tk, Canvas, Button, PhotoImage
+from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton
 from backend.USB import *  # Importation des fonctions depuis backend
 
 OUTPUT_PATH = Path(__file__).parent
@@ -22,7 +22,7 @@ def switch_to_interface(interface_name):
             current_interface.destroy()  # Détruit l'interface actuelle
 
         #Ajout de la vérification de l'USB ici
-        if interface_name == "gui6" and selected_usb_mount_path is None: 
+        if interface_name == "gui6" and test_select_USB() == '': 
            messagebox.showerror("Erreur", "Please select a storage device.")
            return
 
@@ -573,7 +573,7 @@ def gui6():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_1 clicked"),
+            command=lambda: print(scan_type),
             relief="flat"
         )
         button_1.place(
@@ -655,7 +655,13 @@ def gui6():
             image=image_image_9
         )
 #------------------------------------------up-code gui-up---------------------------
-        list_tree_structure() 
+        list_tree_structure()
+ 
+        fast_scan_radio = Radiobutton(window, variable=scan_type_var, value=1, command=update_scan_type())
+        fast_scan_radio.place(x=1050, y=320)
+
+        complete_scan_radio = Radiobutton(window, variable=scan_type_var, value=2, command=update_scan_type())
+        complete_scan_radio.place(x=1050, y=370) 
 
 
         window.resizable(False, False)

@@ -3,6 +3,8 @@ from tkinter import Text, END, messagebox
 from pathlib import Path
 
 selected_usb_mount_path = ""
+scan_type_var = 0
+scan_type = ""
 
 def is_usb_device(partition):
     # Vérifie si la partition est probablement une clé USB plutôt qu'une partition système
@@ -49,6 +51,8 @@ def on_usb_device_click(mount_path, device_name):
     selected_usb_mount_path = mount_path
     messagebox.showinfo("Info", f"USB device selected: {device_name}")
 
+def test_select_USB():
+    return selected_usb_mount_path
 
 def list_tree_structure():
     text_widget = Text(width=50, height=17, bg='gray')  # Set the background color to gray
@@ -61,3 +65,15 @@ def list_tree_structure():
         # print path to all filenames.
         for filename in filenames:
             text_widget.insert(END, filename + '\n')  # Insert the filename into the Text widget
+
+# Fonction pour mettre à jour la variable scan_type en fonction de l'état des radioButton
+def update_scan_type():
+        global scan_type
+        if scan_type_var == 1:
+            scan_type = "fast"
+            print(scan_type)
+        elif scan_type_var == 2:
+            scan_type = "complete"
+            print(scan_type)
+        else:
+            scan_type = None
