@@ -50,11 +50,11 @@ def on_usb_device_click(mount_path, device_name):
     messagebox.showinfo("Info", f"USB device selected: {device_name}")
 
 
-def list_tree_structure(dirname):
-    text_widget = Text(width=50, height=20, bg='gray')  # Set the background color to gray
-    text_widget.place(x=100, y=100)  # Place the Text widget at position (100, 100)
+def list_tree_structure():
+    text_widget = Text(width=50, height=17, bg='gray')  # Set the background color to gray
+    text_widget.place(x=320, y=300)  # Place the Text widget at position (100, 100)
 
-    for dirname, dirnames, filenames in os.walk('.'):
+    for dirname,dirnames, filenames in os.walk(selected_usb_mount_path):
         # print path to all subdirectories first.
         for subdirname in dirnames:
             text_widget.insert(END, subdirname + '\n')  # Insert the subdirectory name into the Text widget

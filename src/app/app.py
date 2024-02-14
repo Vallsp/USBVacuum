@@ -21,10 +21,10 @@ def switch_to_interface(interface_name):
         if current_interface:
             current_interface.destroy()  # Détruit l'interface actuelle
 
-        # Ajout de la vérification de l'USB ici
-        #if interface_name == "gui6" and not is_usb_selected(): 
-        #    messagebox.showerror("Erreur", "Please select a storage device.")
-        #    return
+        #Ajout de la vérification de l'USB ici
+        if interface_name == "gui6" and selected_usb_mount_path is None: 
+           messagebox.showerror("Erreur", "Please select a storage device.")
+           return
 
         # Appelle la fonction correspondant à l'interface sélectionnée
         interfaces[interface_name]()
@@ -655,7 +655,7 @@ def gui6():
             image=image_image_9
         )
 #------------------------------------------up-code gui-up---------------------------
-        list_tree_structure(selected_usb_mount_path) 
+        list_tree_structure() 
 
 
         window.resizable(False, False)
