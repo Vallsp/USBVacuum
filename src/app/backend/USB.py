@@ -1,7 +1,8 @@
 import os,psutil
-from tkinter import Text, END
+from tkinter import Text, END, messagebox
 from pathlib import Path
 
+selected_usb_mount_path = ""
 
 def is_usb_device(partition):
     # Vérifie si la partition est probablement une clé USB plutôt qu'une partition système
@@ -38,11 +39,19 @@ def display_usb_devices(canvas):
         x_position = 1082.0  # Choisissez la position x en fonction de votre mise en page
         y_position = 439.0 + i * 50  # Ajustez la position y en fonction de votre mise en page
         text = f"{device_name} ({mount_path})"
-        canvas.create_text(x_position, y_position, text=text, fill="white", tags="usb_text")
-    
+        # Créez le texte pour le périphérique USB avec un tag unique pour identifier l'événement de clic
+        canvas.create_text(x_position, y_position, text=text, fill="white", tags=f"usb_text")
+        # Liez un événement de clic à ce texte
+        canvas.tag_bind(f"usb_text", "<Button-1>", lambda event, mount_path=mount_path: on_usb_device_click(mount_path, device_name))
 
-def list_tree_structure(dirname, root):
-    text_widget = Text(root, width=50, height=20, bg='gray')  # Set the background color to gray
+def on_usb_device_click(mount_path, device_name):
+    global selected_usb_mount_path
+    selected_usb_mount_path = mount_path
+    messagebox.showinfo("Info", f"USB device selected: {device_name}")
+
+
+def list_tree_structure(dirname):
+    text_widget = Text(width=50, height=20, bg='gray')  # Set the background color to gray
     text_widget.place(x=100, y=100)  # Place the Text widget at position (100, 100)
 
     for dirname, dirnames, filenames in os.walk('.'):

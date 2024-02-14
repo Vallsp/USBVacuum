@@ -655,13 +655,8 @@ def gui6():
             image=image_image_9
         )
 #------------------------------------------up-code gui-up---------------------------
-        list_tree_structure('/media/vallsp/Lespine')
+        list_tree_structure(selected_usb_mount_path) 
 
-        def update_display():
-            display_usb_devices(canvas)
-            window.after(1000, update_display)  # Planifie la prochaine mise à jour après 1000 millisecondes (1 seconde)
-        # Appel de la fonction pour mettre à jour l'affichage toutes les secondes
-        update_display()
 
         window.resizable(False, False)
         window.mainloop()
