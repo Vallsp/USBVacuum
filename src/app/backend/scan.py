@@ -18,9 +18,7 @@ def do_scan(scan_type, usb_path):
 def fast_scan(usb_path):
     os.system(f'docker run -it --rm --mount type=bind,source={usb_path},target=/scandir --mount type=bind,source=$HOME/.clamav/quarantine/,target=/quarantinedir clamav/clamav:unstable clamscan -r --move /quarantinedir --max-filesize=100M /scandir')
     logger.info(f"Fast scan finished.")
-    messagebox.showinfo("Scan Complete", "Fast scan finished.")
 
 def complete_scan(usb_path):
     os.system(f'docker run -it --rm --mount type=bind,source={usb_path},target=/scandir --mount type=bind,source=$HOME/.clamav/quarantine/,target=/quarantinedir clamav/clamav:unstable clamscan -r --move /quarantinedir /scandir')
     logger.info(f"Complete scan finished.")
-    messagebox.showinfo("Scan Complete", "Complete scan finished.")
