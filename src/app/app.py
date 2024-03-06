@@ -49,7 +49,7 @@ def gui():
     canvas.place(x=0, y=0)
 
     canvas.delete("all")  # Supprime tous les éléments actuels sur le Canvas
-    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame5")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame0")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -104,7 +104,7 @@ def gui1():
     canvas.place(x=0, y=0)
 
     canvas.delete("all")  # Supprime tous les éléments actuels sur le Canvas
-    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame5")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame1")
 
     def relative_to_assets(path: str) -> Path:
             return ASSETS_PATH / Path(path)
@@ -159,7 +159,7 @@ def gui2():
     canvas.place(x=0, y=0)
 
     canvas.delete("all")  # Supprime tous les éléments actuels sur le Canvas
-    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame5")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame2")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -215,7 +215,7 @@ def gui3():
     canvas.place(x=0, y=0)
 
     canvas.delete("all")  # Supprime tous les éléments actuels sur le Canvas
-    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame5")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame3")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
@@ -351,7 +351,7 @@ def gui4():
     canvas.place(x=0, y=0)
 
     canvas.delete("all")  # Supprime tous les éléments actuels sur le Canvas
-    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame5")
+    ASSETS_PATH = OUTPUT_PATH / Path(r"./assets/frame4")
 
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
