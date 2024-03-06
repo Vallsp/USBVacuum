@@ -7,7 +7,10 @@ if [ "$EUID" -eq 0 ]
 fi
 
 #Install packages
-sudo apt install python3 python3-tk python3-venv python3-pip clamav -y
+sudo apt install python3 python3-tk python3-venv python3-pip docker.io -y
+
+#Add user to docker group
+sudo usermod -aG docker $USER
 
 # Create a Python virtual environment
 python3 -m venv venv

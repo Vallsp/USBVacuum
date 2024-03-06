@@ -13,11 +13,14 @@ def do_scan(scan_type, usb_path):
         fast_scan(usb_path)
     else:
         logger.error("No scan type selected.")
-        messagebox.showerror("Erreur", "Please select a scan type.")
+        messagebox.showerror("Error", "Please select a scan type.")
 
 def fast_scan(usb_path):
-    #If clamav folder does not exist, create it
-    os.system(f'clamscan -r --move $HOME/.clamav/quarantine/ --max-filesize=100M {usb_path}')
+    os.system(f'docker run -it --rm --mount type=bind,source={usb_path},target=/scandir --mount type=bind,source=$HOME/.clamav/quarantine/,target=/quarantinedir clamav/clamav:unstable clamscan -r --move /quarantinedir --max-filesize=100M /scandir')
+    logger.info(f"Fast scan finished.")
+    messagebox.showinfo("Scan Complete", "Fast scan finished.")
 
 def complete_scan(usb_path):
-    os.system(f'clamscan -r --move $HOME/.clamav/quarantine/ {usb_path}')
+    os.system(f'docker run -it --rm --mount type=bind,source={usb_path},target=/scandir --mount type=bind,source=$HOME/.clamav/quarantine/,target=/quarantinedir clamav/clamav:unstable clamscan -r --move /quarantinedir /scandir')
+    logger.info(f"Complete scan finished.")
+    messagebox.showinfo("Scan Complete", "Complete scan finished.")

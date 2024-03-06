@@ -30,7 +30,7 @@ def switch_to_interface(interface_name):
         #Ajout de la vérification de l'USB ici
         if interface_name == "gui6" and test_select_USB() == '': 
            logger.error("No storage device selected.")
-           messagebox.showerror("Erreur", "Please select a storage device.")
+           messagebox.showerror("Error", "Please select a storage device.")
            return
 
         # Appelle la fonction correspondant à l'interface sélectionnée
