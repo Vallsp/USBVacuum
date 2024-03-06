@@ -220,6 +220,7 @@ def gui3():
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
     
+    list_quarantine()
     #------------------------------------------down-code gui-down---------------------------
 
     image_image_1 = PhotoImage(
@@ -582,7 +583,7 @@ def gui6():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: do_scan(return_scan_type(), test_select_USB()),
+            command=lambda: do_scan(return_scan_type(), test_select_USB(),),
             relief="flat"
         )
         button_1.place(
