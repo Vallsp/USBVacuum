@@ -82,7 +82,7 @@ def return_scan_type():
 
 def list_quarantine():
     text_widget = Text(width=50, height=17, bg='gray')  # Set the background color to gray
-    text_widget.place(x=320, y=300)  # Place the Text widget at position (100, 100)
+    text_widget.place(x=525, y=300)  # Place the Text widget at position (100, 100)
 
     for dirname,dirnames, filenames in os.walk(f"{os.environ['HOME']}/.clamav/quarantine"):
         # print path to all subdirectories first.

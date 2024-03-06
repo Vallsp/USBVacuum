@@ -322,8 +322,8 @@ def gui3():
     image_image_5 = PhotoImage(
         file=relative_to_assets("image_5.png"))
     image_5 = canvas.create_image(
-        723.0,
-        425.0,
+        718.0,
+        340.0,
         image=image_image_5
     )
 
@@ -583,7 +583,7 @@ def gui6():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: do_scan(return_scan_type(), test_select_USB(),),
+            command=lambda: do_scan(return_scan_type(), test_select_USB(), switch_to_interface("gui3")),
             relief="flat"
         )
         button_1.place(
@@ -768,7 +768,7 @@ def gui7():
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: switch_to_interface("gui7"),
+            command=lambda: switch_to_interface("gui3"),
             relief="flat"
         )
         button_2.place(
