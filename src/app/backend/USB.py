@@ -1,5 +1,5 @@
 import os,psutil
-from tkinter import Text, END, messagebox, IntVar
+from tkinter import Text, END, messagebox, Canvas
 from pathlib import Path
 from loguru import logger
 
@@ -91,3 +91,5 @@ def list_quarantine():
         # print path to all filenames.
         for filename in filenames:
             text_widget.insert(END, filename + '\n')  # Insert the filename into the Text widget
+
+
