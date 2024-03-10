@@ -1,8 +1,9 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton, messagebox
 from loguru import logger
-from backend.USB import list_tree_structure, test_select_USB, return_scan_type, update_scan_type, display_usb_devices, list_quarantine # Importation des fonctions depuis backend
+from backend.USB import list_tree_structure, test_select_USB, return_scan_type, update_scan_type, display_usb_devices, list_quarantine, return_scan_type # Importation des fonctions depuis backend
 from backend.scan import do_scan
+import threading
 
 window = Tk()
 window.geometry("1440x772")
@@ -27,6 +28,11 @@ def switch_to_interface(interface_name):
            logger.error("No storage device selected.")
            messagebox.showerror("Error", "Please select a storage device.")
            return
+        
+        # if interface_name == "gui5" and scan_type() == '':
+        #     logger.error("No scan type selected.")
+        #     messagebox.showerror("Error", "Please select a scan type.")
+        #     return
 
         # Appelle la fonction correspondant à l'interface sélectionnée
         interfaces[interface_name]()
@@ -547,7 +553,7 @@ def gui6():
             image=button_image_1,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: do_scan(return_scan_type(), test_select_USB(), switch_gui5, switch_gui3),
+            command=lambda: makeScan(),
             relief="flat"
         )
         button_1.place(
@@ -631,19 +637,29 @@ def gui6():
 #------------------------------------------up-code gui-up---------------------------
         scan_type_var = None
         list_tree_structure()
-        
-        def switch_gui3():
-            switch_to_interface("gui3")
-
-        def switch_gui5():
-            switch_to_interface("gui5")
 
         # Définition des Radiobuttons
         fast_scan_radio = Radiobutton(window, variable=scan_type_var, value=1, command=lambda: update_scan_type("1"))
         fast_scan_radio.place(x=1050, y=320)
 
         complete_scan_radio = Radiobutton(window, variable=scan_type_var, value=2, command=lambda: update_scan_type("2"))
-        complete_scan_radio.place(x=1050, y=370) 
+        complete_scan_radio.place(x=1050, y=370)
+
+        def switch_gui3():
+            window.after(0, switch_to_interface("gui3"))
+        
+        
+        def makeScan():
+            if return_scan_type() == 'complete' or return_scan_type() == 'fast':
+                global terminate_thread
+                terminate_thread = False
+                thread1 = threading.Thread(target=do_scan, args=(return_scan_type(), test_select_USB(), switch_gui3))
+                thread1.start()
+                switch_to_interface("gui5")
+            else:
+                logger.error("No scan type selected.")
+                messagebox.showerror("Error", "Please select a scan type.")
+                return
 
 
         window.resizable(False, False)

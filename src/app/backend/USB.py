@@ -1,5 +1,5 @@
 import os,psutil
-from tkinter import Text, END, messagebox, Canvas
+from tkinter import Text, END, messagebox
 from pathlib import Path
 from loguru import logger
 
