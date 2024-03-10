@@ -1,9 +1,8 @@
 from tkinter import END, messagebox, Tk
 import os
 from loguru import logger
-import threading
+from backend.USB import selected_usb_device_name
 #from datetime import datetime
-
 
 def do_scan(scan_type, usb_path, gui3):
 
@@ -12,15 +11,15 @@ def do_scan(scan_type, usb_path, gui3):
     if scan_type == 'complete':
         #current_datetime = datetime.now()
         #formatted_datetime = current_datetime.strftime("%Y_%m_%d_%H_%M_%S")
-        if not os.path.exists(f"{os.environ['HOME']}/.clamav/quarantine/{usb_path}"):
-            os.makedirs(f"{os.environ['HOME']}/.clamav/quarantine/{usb_path}")
+        if not os.path.exists(f"{os.environ['HOME']}/.clamav/quarantine/{selected_usb_device_name}"):
+            os.makedirs(f"{os.environ['HOME']}/.clamav/quarantine/{selected_usb_device_name}")
         logger.info(f"Scanning {usb_path} with {scan_type} scan type.")
         complete_scan(usb_path)
     elif scan_type == 'fast':
         #current_datetime = datetime.now()
         #formatted_datetime = current_datetime.strftime("%Y_%m_%d_%H_%M_%S")
-        if not os.path.exists(f"{os.environ['HOME']}/.clamav/quarantine/{usb_path}"):
-            os.makedirs(f"{os.environ['HOME']}/.clamav/quarantine/{usb_path}")
+        if not os.path.exists(f"{os.environ['HOME']}/.clamav/quarantine/{selected_usb_device_name}"):
+            os.makedirs(f"{os.environ['HOME']}/.clamav/quarantine/{selected_usb_device_name}")
         logger.info(f"Scanning {usb_path} with {scan_type} scan type.")
         fast_scan(usb_path)
     else:

@@ -4,6 +4,7 @@ from pathlib import Path
 from loguru import logger
 
 selected_usb_mount_path = ""
+selected_usb_device_name = ""
 scan_type = ""
 
 def is_usb_device(partition):
@@ -48,8 +49,11 @@ def display_usb_devices(canvas):
 
 def on_usb_device_click(mount_path, device_name):
     global selected_usb_mount_path
+    global selected_usb_device_name
     selected_usb_mount_path = mount_path
-    logger.info(f"USB device selected: {device_name}")
+    selected_device_name = device_name
+    logger.info(f"USB device selected: {selected_usb_device_name}")
+    logger.info(f"USB device mount path: {selected_usb_mount_path}")
     messagebox.showinfo("Info", f"USB device selected: {device_name}")
 
 def test_select_USB():
@@ -84,7 +88,7 @@ def list_quarantine():
     text_widget = Text(width=50, height=17, bg='gray')  # Set the background color to gray
     text_widget.place(x=525, y=300)  # Place the Text widget at position (100, 100)
 
-    for dirname,dirnames, filenames in os.walk(f"{os.environ['HOME']}/.clamav/quarantine"):
+    for dirname,dirnames, filenames in os.walk(f"{os.environ['HOME']}/.clamav/quarantine/{selected_usb_device_name}"):
         # print path to all subdirectories first.
         for subdirname in dirnames:
             text_widget.insert(END, subdirname + '\n')  # Insert the subdirectory name into the Text widget
