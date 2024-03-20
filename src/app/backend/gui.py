@@ -2,7 +2,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton, messagebox
 from loguru import logger
 from backend.USB import list_tree_structure, test_select_USB, return_scan_type, update_scan_type, display_usb_devices, list_quarantine, return_scan_type # Importation des fonctions depuis backend
-from backend.scan import do_scan
+from backend.scan import do_scan, scan_finished
 import threading
 
 window = Tk()
@@ -36,7 +36,6 @@ def switch_to_interface(interface_name):
 
         # Appelle la fonction correspondant à l'interface sélectionnée
         interfaces[interface_name]()
-
 
 def gui():
     canvas = Canvas(
@@ -132,7 +131,11 @@ def gui1():
     )
 
     #------------------------------------------up-code gui-up-------------------------------
+    def wait_switch_gui():
+            window.after(500,switch_to_interface, "gui")
     
+    thread3 = threading.Thread(target=wait_switch_gui)
+    thread3.start()
 
     window.resizable(False, False)
     window.mainloop()
@@ -207,7 +210,6 @@ def gui3():
     def relative_to_assets(path: str) -> Path:
         return ASSETS_PATH / Path(path)
     
-    list_quarantine()
     #------------------------------------------down-code gui-down---------------------------
 
     image_image_1 = PhotoImage(
@@ -296,7 +298,7 @@ def gui3():
         image=button_image_4,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4 clicked"),
+        command=lambda: switch_to_interface("gui1"),
         relief="flat"
     )
     button_4.place(
@@ -315,7 +317,7 @@ def gui3():
     )
 
     #------------------------------------------up-code gui-up-------------------------------
-
+    list_quarantine()
 
     window.resizable(False, False)
     window.mainloop()
@@ -490,10 +492,18 @@ def gui5():
         image=image_image_2
     )
 
-    #------------------------------------------up-code-gui-up-------------------------------
+    #------------------------------------------up-code-gui-up------------------------------
+    def wait_switch_gui3():
+            scan_finished.wait()
+            window.after(0,switch_to_interface, "gui3")
     
+    thread2 = threading.Thread(target=wait_switch_gui3)
+    thread2.start()
+
+
+    window.mainloop()   
     window.resizable(False, False)
-    window.mainloop()
+
 
 def gui6():
         canvas = Canvas(
@@ -645,17 +655,15 @@ def gui6():
         complete_scan_radio = Radiobutton(window, variable=scan_type_var, value=2, command=lambda: update_scan_type("2"))
         complete_scan_radio.place(x=1050, y=370)
 
-        def switch_gui3():
-            window.after(0, switch_to_interface("gui3"))
-        
         
         def makeScan():
             if return_scan_type() == 'complete' or return_scan_type() == 'fast':
                 global terminate_thread
                 terminate_thread = False
-                thread1 = threading.Thread(target=do_scan, args=(return_scan_type(), test_select_USB(), switch_gui3))
+                thread1 = threading.Thread(target=do_scan, args=(return_scan_type(), test_select_USB()))
                 thread1.start()
                 switch_to_interface("gui5")
+                
             else:
                 logger.error("No scan type selected.")
                 messagebox.showerror("Error", "Please select a scan type.")

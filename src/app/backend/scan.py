@@ -1,10 +1,12 @@
 from tkinter import END, messagebox, Tk
-import os
+import os, threading
 from loguru import logger
 from backend.USB import selected_usb_device_name
-#from datetime import datetime
+#from datetime import 
 
-def do_scan(scan_type, usb_path, gui3):
+scan_finished = threading.Event()
+
+def do_scan(scan_type, usb_path):
 
     if not os.path.exists(f"{os.environ['HOME']}/.clamav/quarantine"):
         os.makedirs(f"{os.environ['HOME']}/.clamav/quarantine")
@@ -33,8 +35,10 @@ def fast_scan(usb_path):
     try:
         os.system(f'docker run -it --rm --mount type=bind,source={usb_path},target=/scandir --mount type=bind,source=$HOME/.clamav/quarantine/,target=/quarantinedir clamav/clamav:unstable clamscan -r --move /quarantinedir --max-filesize=100M /scandir')
         logger.info(f"Fast scan finished.")
+        scan_finished.set()
     except Exception as e:
         logger.error(f"Error in fast scan: {e}")
+        
 
 
 def complete_scan(usb_path):
@@ -43,3 +47,6 @@ def complete_scan(usb_path):
         logger.info(f"Complete scan finished.")
     except Exception as e:
         logger.error(f"Error in complete scan: {e}")
+    finally:
+        # Définir l'Event pour signaler la fin de la numérisation
+        scan_finished.set()
