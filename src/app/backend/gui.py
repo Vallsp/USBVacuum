@@ -132,7 +132,7 @@ def gui1():
 
     #------------------------------------------up-code gui-up-------------------------------
     def wait_switch_gui():
-            window.after(500,switch_to_interface, "gui")
+            window.after(3000,switch_to_interface, "gui")
     
     thread3 = threading.Thread(target=wait_switch_gui)
     thread3.start()
