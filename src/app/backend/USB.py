@@ -99,4 +99,17 @@ def list_quarantine():
         for filename in filenames:
             text_widget.insert(END, filename + '\n')  # Insert the filename into the Text widget
 
+def umount():
+    try:
+        os.system(f'umount {selected_usb_mount_path}')
+        logger.info(f"USB device unmounted.")
+    except Exception as e:
+        logger.error(f"Error unmounting USB device: {e}")
 
+def reset():
+    global selected_usb_mount_path
+    global selected_usb_device_name
+    global scan_type
+    selected_usb_mount_path = ""
+    selected_usb_device_name = ""
+    scan_type = ""

@@ -1,7 +1,7 @@
 from pathlib import Path
 from tkinter import Tk, Canvas, Button, PhotoImage, Radiobutton, messagebox
 from loguru import logger
-from backend.USB import list_tree_structure, test_select_USB, return_scan_type, update_scan_type, display_usb_devices, list_quarantine, return_scan_type # Importation des fonctions depuis backend
+from backend.USB import list_tree_structure, test_select_USB, return_scan_type, update_scan_type, display_usb_devices, list_quarantine, return_scan_type, umount, reset # Importation des fonctions depuis backend
 from backend.scan import do_scan, scan_finished
 import threading
 
@@ -82,7 +82,14 @@ def gui():
     )
 
     #------------------------------------------up-code gui-up-------------------------------
+    umount()
+    reset()
+
+    def wait_switch_gui7():
+            window.after(3000,switch_to_interface, "gui7")
     
+    thread4 = threading.Thread(target=wait_switch_gui7)
+    thread4.start()    
 
     window.resizable(False, False)
     window.mainloop()
@@ -242,7 +249,7 @@ def gui3():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        # command=lambda: print("button_1 clicked"),
         relief="flat"
     )
     button_1.place(
@@ -258,7 +265,7 @@ def gui3():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        # command=lambda: print("button_2 clicked"),
         relief="flat"
     )
     button_2.place(
@@ -274,7 +281,7 @@ def gui3():
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        # command=lambda: print("button_3 clicked"),
         relief="flat"
     )
     button_3.place(
@@ -371,7 +378,7 @@ def gui4():
         image=button_image_1,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_1 clicked"),
+        # command=lambda: print("button_1 clicked"),
         relief="flat"
     )
     button_1.place(
@@ -387,7 +394,7 @@ def gui4():
         image=button_image_2,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_2 clicked"),
+        # command=lambda: print("button_2 clicked"),
         relief="flat"
     )
     button_2.place(
@@ -403,7 +410,7 @@ def gui4():
         image=button_image_3,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_3 clicked"),
+        # command=lambda: print("button_3 clicked"),
         relief="flat"
     )
     button_3.place(
@@ -427,7 +434,7 @@ def gui4():
         image=button_image_4,
         borderwidth=0,
         highlightthickness=0,
-        command=lambda: print("button_4 clicked"),
+        # command=lambda: print("button_4 clicked"),
         relief="flat"
     )
     button_4.place(
@@ -587,7 +594,7 @@ def gui6():
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: print("button_2 clicked"),
+            # command=lambda: print("button_2 clicked"),
             relief="flat"
         )
         button_2.place(
@@ -761,7 +768,7 @@ def gui7():
             image=button_image_2,
             borderwidth=0,
             highlightthickness=0,
-            command=lambda: gui3(),
+            command=lambda: switch_to_interface("gui7"),
             relief="flat"
         )
         button_2.place(
