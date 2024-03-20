@@ -51,10 +51,13 @@ def on_usb_device_click(mount_path, device_name):
     global selected_usb_mount_path
     global selected_usb_device_name
     selected_usb_mount_path = mount_path
-    selected_device_name = device_name
+    selected_usb_device_name = device_name
     logger.info(f"USB device selected: {selected_usb_device_name}")
     logger.info(f"USB device mount path: {selected_usb_mount_path}")
     messagebox.showinfo("Info", f"USB device selected: {device_name}")
+
+def test_select_name():
+    return selected_usb_device_name
 
 def test_select_USB():
     return selected_usb_mount_path
