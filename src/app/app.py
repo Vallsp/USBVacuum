@@ -26,11 +26,11 @@ def pull_docker_image():
     except Exception as e:
         logger.error(f"An error occurred while checking internet connection: {e}")
 
-if __name__ == "__main__":
-    if not is_docker_installed():
-        logger.error("Docker is not installed. Please run install_dependencies.sh")
-        sys.exit(1)
 
-    pull_docker_image()
-    gui7()
-    logger.info(f"Starting USBVacuum version {__version__}")
+if not is_docker_installed():
+    logger.error("Docker is not installed. Please run install_dependencies.sh")
+    sys.exit(1)
+
+pull_docker_image()
+gui7()
+logger.info(f"Starting USBVacuum version {__version__}")
