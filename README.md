@@ -41,6 +41,8 @@ USB drives are a common vector for malware propagation. When an infected USB dri
 
 - **Tkinter**: Python's standard GUI library for building simple interfaces.
 
+- **Tkinter-Designer**: Tool for creating Tkinter interfaces with Figma.
+
 ## Features
 
 ### USB Detection
@@ -82,15 +84,19 @@ USBVacuum has been tested and is only supported on Debian 12.
     git clone https://github.com/yourusername/USBVacuum.git
     cd USBVacuum
     ```
+2. Copy the `.env.example` file to `.env` and update the DISPLAY variable with the correct value:
+    ```bash
+    cp .env.example .env
+    ```
 
-2. Install dependencies:
+3. Install dependencies:
     ```bash
     ./install_dependencies.sh
     ```
 
 4. Restart the system to apply changes
 
-3. Start the software:
+5. Start the software:
     ```bash
     ./start.sh
     ```
