@@ -1,3 +1,6 @@
 #!/bin/bash
 source ./venv/bin/activate
-DISPLAY=:1 python3 ./src/app/app.py
+source .env
+#Set environnement display
+export DISPLAY=$DISPLAY
+python3 ./src/app/app.py
