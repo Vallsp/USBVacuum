@@ -1,5 +1,7 @@
 # USBVacuum
 
+![usbvacuum](https://github.com/Vallsp/USBVacuum/assets/145016532/33d703ae-6b31-4df8-a932-4423a548d522)
+
 ## Introduction
 
 In an increasingly connected world, USB drives have become essential tools for data storage and transfer. However, with their widespread use, the risks associated with malware carried by these devices have become a major concern for users and organizations.
