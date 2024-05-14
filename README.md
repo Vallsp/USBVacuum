@@ -1,5 +1,6 @@
 # USBVacuum
 
+An automated malware cleaning station.
 ![usbvacuum](https://github.com/Vallsp/USBVacuum/assets/145016532/33d703ae-6b31-4df8-a932-4423a548d522)
 
 ## Introduction
